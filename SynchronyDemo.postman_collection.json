@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "86a189d5-0b2f-4089-a919-26e7ac2c0090",
+		"name": "SynchronyDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload Image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcCIsImV4cCI6MTY4NjI4MTk4NywiaWF0IjoxNjg1NzgxMzMzfQ.FQ3r-m5XndHbPxV1Ok5etru-eemYUyspLkwmjiS9rO7yQIVZcMLEM0yzdthk5rVYX7osrgJFxbsbFZPHWAh64w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/prana/Desktop/FIS-LOGO.jpg"
+						},
+						{
+							"key": "title",
+							"value": "test",
+							"type": "default"
+						},
+						{
+							"key": "description",
+							"value": "test",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/image",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcCIsImV4cCI6MTY4NjM4NjM4NCwiaWF0IjoxNjg1ODg1NzMwfQ.uSsRYGWTsJjB1svplyUdjtQvbd2xanXuWB9R4Y8hGz0Geo4Txil2h_ZunnW_oOZRUAWhI_kobzJ5sm_8xpWDbQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/image/ytjSiQJ8vX48oTP",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"image",
+						"ytjSiQJ8vX48oTP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "dXNlcjpwYXNzd29yZA==",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "eventbo",
+						"value": "{\"country\":\"india\",\"organizerName\":\"Pranav\",\"typeOf\":\"C\",\"gst\":\"N\",\"gstno\":\"\",\"eventName\":\"\",\"visibility\":null,\"eventStartDate\":\"\",\"eventStartTime\":\"\",\"eventEndDate\":\"\",\"eventEndTime\":\"\",\"location\":null,\"eventVenue\":\"\",\"eventDesc\":\"\",\"ticket1Name\":\"\",\"ticket1Type\":\"public\",\"ticket1Qty\":\",\",\"ticket1Price\":\"\",\"ticket1SaleStartDate\":\"\",\"ticket1SaleStartTime\":\"\",\"ticket1SaleEndDate\":\"\",\"ticket1SaleEndTime\":\"\",\"ticket1Desc\":\"\",\"ticket1AttendeeMsg\":\"\",\"minQtyTicket1\":\"\",\"maxQtyTicket1\":\"\",\"ticket2Name\":\"\",\"ticket2Type\":\"public\",\"ticket2Qty\":\"\",\"ticket2Price\":\"\",\"ticket2SaleStartDate\":\"\",\"ticket2SaleStartTime\":\"\",\"ticket2SaleEndDate\":\"\",\"ticket2SaleEndTime\":\"\",\"ticket2Desc\":\"\",\"ticket2AttendeeMsg\":\"\",\"minQtyTicket2\":\"\",\"maxQtyTicket2\":\"\",\"ticket3Name\":\"\",\"ticket3Type\":\"public\",\"ticket3Qty\":null,\"ticket3Price\":\"\",\"ticket3SaleStartDate\":\"\",\"ticket3SaleStartTime\":\"\",\"ticket3SaleEndDate\":\"\",\"ticket3SaleEndTime\":\"\",\"ticket3Desc\":\"\",\"ticket3AttendeeMsg\":null,\"minQtyTicket3\":\"\",\"maxQtyTicket3\":\"\",\"pranpafee\":null,\"gatewayfee\":null,\"attendeeQuestion\":null,\"questionsAttendeeDesc\":\"\",\"bankName\":\"\",\"bankIfsc\":\"\",\"accountName\":\"\",\"accountNumber\":\"\",\"chequeImage\":null}",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\": \"pp\",\r\n  \"username\": \"pp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "dXNlcjpwYXNzd29yZA==",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "eventbo",
+						"value": "{\"country\":\"india\",\"organizerName\":\"Pranav\",\"typeOf\":\"C\",\"gst\":\"N\",\"gstno\":\"\",\"eventName\":\"\",\"visibility\":null,\"eventStartDate\":\"\",\"eventStartTime\":\"\",\"eventEndDate\":\"\",\"eventEndTime\":\"\",\"location\":null,\"eventVenue\":\"\",\"eventDesc\":\"\",\"ticket1Name\":\"\",\"ticket1Type\":\"public\",\"ticket1Qty\":\",\",\"ticket1Price\":\"\",\"ticket1SaleStartDate\":\"\",\"ticket1SaleStartTime\":\"\",\"ticket1SaleEndDate\":\"\",\"ticket1SaleEndTime\":\"\",\"ticket1Desc\":\"\",\"ticket1AttendeeMsg\":\"\",\"minQtyTicket1\":\"\",\"maxQtyTicket1\":\"\",\"ticket2Name\":\"\",\"ticket2Type\":\"public\",\"ticket2Qty\":\"\",\"ticket2Price\":\"\",\"ticket2SaleStartDate\":\"\",\"ticket2SaleStartTime\":\"\",\"ticket2SaleEndDate\":\"\",\"ticket2SaleEndTime\":\"\",\"ticket2Desc\":\"\",\"ticket2AttendeeMsg\":\"\",\"minQtyTicket2\":\"\",\"maxQtyTicket2\":\"\",\"ticket3Name\":\"\",\"ticket3Type\":\"public\",\"ticket3Qty\":null,\"ticket3Price\":\"\",\"ticket3SaleStartDate\":\"\",\"ticket3SaleStartTime\":\"\",\"ticket3SaleEndDate\":\"\",\"ticket3SaleEndTime\":\"\",\"ticket3Desc\":\"\",\"ticket3AttendeeMsg\":null,\"minQtyTicket3\":\"\",\"maxQtyTicket3\":\"\",\"pranpafee\":null,\"gatewayfee\":null,\"attendeeQuestion\":null,\"questionsAttendeeDesc\":\"\",\"bankName\":\"\",\"bankIfsc\":\"\",\"accountName\":\"\",\"accountNumber\":\"\",\"chequeImage\":null}",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contact\": \"90\",\r\n  \"email\": \"pp@gmail.com\",\r\n  \"id\": 0,\r\n  \"password\": \"pp\",\r\n  \"username\": \"pp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Profile",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "View List of Images",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "View Image",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
