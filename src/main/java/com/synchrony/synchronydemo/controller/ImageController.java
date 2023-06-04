@@ -79,7 +79,7 @@ public class ImageController {
 	@RequestMapping(value = "/image/{imageId}", method = RequestMethod.GET)
 	public ResponseEntity<?> viewImage(@RequestHeader(value = "Authorization") String requestTokenHeader,
 			@PathVariable("imageId") String imageId) throws Exception {
-		logger.info("Entering viewImage method inside ImageController for id", imageId);
+		logger.info("Entering viewImage method inside ImageController for id:" + imageId);
 
 		String username = null;
 		String jwtToken = null;
@@ -88,6 +88,7 @@ public class ImageController {
 			jwtToken = requestTokenHeader.substring(7);
 			try {
 				username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+				logger.info("userName from jwt : "+username);
 			} catch (IllegalArgumentException e) {
 				logger.error("Unable to get JWT Token");
 			} catch (ExpiredJwtException e) {

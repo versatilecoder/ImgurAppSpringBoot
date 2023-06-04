@@ -79,8 +79,8 @@ public class AuthController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
 		logger.info("Entering saveUser method inside AuthController");
-		if (userDetailsService.existsByContact(user.getContact())) {
-			return new ResponseEntity<>("Contact Already Registered!!", HttpStatus.BAD_REQUEST);
+		if (userDetailsService.existsByUsername(user.getUsername())) {
+			return new ResponseEntity<>("UserName Already Registered!!", HttpStatus.BAD_REQUEST);
 		}
 		logger.info("Exiting saveUser method inside AuthController");
 		return ResponseEntity.ok(userDetailsService.save(user));

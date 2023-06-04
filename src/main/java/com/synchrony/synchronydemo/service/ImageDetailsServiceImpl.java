@@ -68,25 +68,26 @@ public class ImageDetailsServiceImpl implements ImageDetailsService {
 	@Override
 	public ImageDetails viewImage(String userName, String imageId) {
 		try {
+			logger.info("userName from jwt : "+userName);
 			ImageDetails imgDetails = imageRepository.findById(Long.parseLong(imageId))
 					.orElseThrow(() -> new RecordNotFoundException("Record Not Found with given image: " + imageId));
 			ImageResponseWrapper wrapperResponse = new ImageResponseWrapper();
-			logger.trace("Fetched image", imgDetails.getUserName());
+			logger.trace("Fetched image : "+imgDetails.getUserName());
 			/**
 			 * USer can only view his own image
 			 */
 			if (imgDetails.getUserName().equals(userName)) {
 				String hashId = imgDetails.getImageHash();
-				logger.trace("Image hash", hashId);
+				logger.trace("Image hash:"+hashId);
 				/*
-				 * Get Image returning 404 from imgur so sending url store in DB
+				 * Get Image returning 404 from imgur so sending url stored in DB
 				 */
 				// wrapperResponse = imgurAdapter.viewImage(hashId);
-
+				return imgDetails;
 			}
-			return imgDetails;
+			
 		} catch (Exception e) {
-			logger.error("Exception in fetching image", e);
+			logger.error("Exception in fetching image :"+ e);
 		}
 		return null;
 	}
@@ -100,8 +101,8 @@ public class ImageDetailsServiceImpl implements ImageDetailsService {
 			ImageDetails imgDetails = optional.get();
 
 			String hashId = imgDetails.getImageHash();
-			logger.trace("Image hash is",hashId);
-			logger.trace("userName is",userName+"--"+imgDetails.getUserName());
+			logger.trace("Image hash is :"+hashId);
+			logger.trace("userName is :"+userName+"--"+imgDetails.getUserName());
 			try {
 				/**
 				 * USer can only delete his own image
@@ -112,6 +113,9 @@ public class ImageDetailsServiceImpl implements ImageDetailsService {
 						imageRepository.deleteById(Long.parseLong(imageId));
 					response.setMessage("Successfully Deleted");
 					response.setStatus(200);
+				}else{
+				response.setMessage("Image Id not found");
+				response.setStatus(400);
 				}
 			} catch (Exception e) {
 				logger.error("Exception in Deleting image");

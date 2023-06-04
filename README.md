@@ -13,12 +13,13 @@ Project support below activities:
 
 
 Assumptions:
-1.	A Person can login using Username and Password
-2.	At time of registration Person provide password as well
-3.  To view List of Images, person will get urls of all images in response
-4.  Every image has imageid attached even if displaued on UI.
-5.  To view just one image, person on passing imageid, will get the URL
-6.  All testing done on localhost(kafka,jenkins,nexus,h2)
+1.  At time of registration Person provide password as well
+2.  UserName should be unique at registeration 
+3.	A Person can login using Username and Password	
+4.  To view List of Images, person will get urls of all images in response
+5.  Every image has imageid attached even if displaued on UI.
+6.  To view just one image, person on passing imageid, will get the URL
+7.  All testing done on localhost(kafka,jenkins,nexus,h2)
 
 
 
@@ -37,7 +38,27 @@ Assumptions:
   
   _Nexus_ - http://localhost:8081/
   
-  
+  For Nexus Server use please update the settings.xml (~.m2/settings.xml) with below details
+ <servers>   
+   <server>
+            <id>nexus-release</id>
+            <username>admin</username>
+            <password>password</password>
+        </server>
+   </servers>
+    <mirrors>
+  <mirror>
+      <id>maven-default-http-blocker</id>
+      <mirrorOf>external:http:*</mirrorOf>
+      <name>Pseudo repository to mirror external repositories initially using HTTP.</name>
+      <url>http://0.0.0.0/</url>
+      <blocked>true</blocked>
+    </mirror>
+   </mirrors>
+   
+   and repository url in pom.xml under distributionManagement
+   
+   
 ![alt text](https://i.imgur.com/xEhMxKQ.png)
 
   _Kafka_ - localhost:9092

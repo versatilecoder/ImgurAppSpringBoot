@@ -63,6 +63,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public boolean existsByContact(String contact) {
 		return userRepository.existsByContact(contact);
 	}
+	
+	public boolean existsByUsername(String userName) {
+		return userRepository.existsByUsername(userName);
+	}
 
 	public User fetchUserProfile(String userName) {
 		try {
