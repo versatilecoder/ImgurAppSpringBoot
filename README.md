@@ -23,7 +23,11 @@ Assumptions:
 
 
  _Swagger Url_- http://localhost:8080/swagger-ui.html
+ 
+ ![alt text](https://i.imgur.com/NT8nEgd.png)
+ 
   _H2_- http://localhost:8080/h2-console
+  
   _Jenkins_ - http://localhost:9090/
   _Nexus_ - http://localhost:8081/
   _Kafka_ - localhost:9092
