@@ -27,7 +27,7 @@ import com.synchrony.synchronydemo.service.UserDetailsServiceImpl;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * @author Pranav.Pandey
+ * @author Pranav
  *
  */
 @RequestMapping("/api/v1")
@@ -53,6 +53,7 @@ public class AuthController {
 	 * @param authenticationRequest
 	 * @return
 	 * @throws Exception
+	 *             For user Login
 	 */
 	@ApiOperation(value = "User should login using username and password")
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)

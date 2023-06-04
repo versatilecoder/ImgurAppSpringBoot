@@ -16,27 +16,21 @@ import com.synchrony.synchronydemo.models.ImageDetails;
 
 @Configuration
 public class KafkaProducerConfig {
-	
+
 	@Value(value = "${spring.kafka.bootstrap-servers}")
-    private String bootstrapAddress;
+	private String bootstrapAddress;
 
-    @Bean
-    public ProducerFactory<String, ImageDetails> producerFactory() {
-        Map<String, Object> configProps = new HashMap<>();
-        configProps.put(
-          ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, 
-          bootstrapAddress);
-        configProps.put(
-          ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, 
-          JsonSerializer.class);
-        configProps.put(
-          ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, 
-          JsonSerializer.class);
-        return new DefaultKafkaProducerFactory<>(configProps);
-    }
+	@Bean
+	public ProducerFactory<String, ImageDetails> producerFactory() {
+		Map<String, Object> configProps = new HashMap<>();
+		configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+		configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+		configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+		return new DefaultKafkaProducerFactory<>(configProps);
+	}
 
-    @Bean
-    public KafkaTemplate<String, ImageDetails> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
-    }
+	@Bean
+	public KafkaTemplate<String, ImageDetails> kafkaTemplate() {
+		return new KafkaTemplate<>(producerFactory());
+	}
 }

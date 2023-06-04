@@ -11,9 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.synchrony.synchronydemo.exceptions.RecordNotFoundException;
 import com.synchrony.synchronydemo.models.User;
 import com.synchrony.synchronydemo.repository.UserRepository;
-
 
 /**
  * @author Pranav.Pandey
@@ -21,20 +21,14 @@ import com.synchrony.synchronydemo.repository.UserRepository;
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	
+
 	Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-	
+
 	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
-//
-//	@Autowired
-//	private EntityManager entityManager;
-//
-//	@Autowired
-//	private HttpSession httpSession;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -59,7 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		return userRepository.save(newUser);
 	}
-	
+
 	/**
 	 * Check if registered user exist by contact number
 	 * 
@@ -69,5 +63,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public boolean existsByContact(String contact) {
 		return userRepository.existsByContact(contact);
 	}
-}
 
+	public User fetchUserProfile(String userName) {
+		try {
+			User userDetails = userRepository.findByUsername(userName).orElseThrow(
+					() -> new RecordNotFoundException("Record Not Found with given userName: " + userName));
+			return userDetails;
+		} catch (Exception e) {
+			logger.error("Exception in userProfile", e);
+		}
+		return null;
+	}
+}

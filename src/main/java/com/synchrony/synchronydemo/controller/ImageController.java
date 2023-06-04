@@ -1,7 +1,5 @@
 package com.synchrony.synchronydemo.controller;
 
-import javax.websocket.server.PathParam;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synchrony.synchronydemo.dom.ImageData;
+import com.synchrony.synchronydemo.dom.ResponseWrapper;
+import com.synchrony.synchronydemo.models.ImageDetails;
 import com.synchrony.synchronydemo.security.JwtUtils;
 import com.synchrony.synchronydemo.service.ImageDetailsService;
 
@@ -37,11 +38,11 @@ public class ImageController {
 	ImageDetailsService imageDetailsService;
 
 	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
 	private JwtUtils jwtTokenUtil;
 
+	/**
+	 * This API will give list of images mapped to username
+	 */
 	@ApiOperation(value = "View All Image List")
 	@RequestMapping(value = "/image", method = RequestMethod.GET)
 	public ResponseEntity<?> viewAllImage(@RequestHeader(value = "Authorization") String requestTokenHeader)
@@ -66,11 +67,19 @@ public class ImageController {
 		return ResponseEntity.ok(imageDetailsService.getAllImages(username));
 	}
 
+	/**
+	 * 
+	 * @param requestTokenHeader
+	 * @param imageId
+	 * @return
+	 * @throws Exception
+	 *             This API gives image URL for the given Id
+	 */
 	@ApiOperation(value = "View Image by Id")
 	@RequestMapping(value = "/image/{imageId}", method = RequestMethod.GET)
 	public ResponseEntity<?> viewImage(@RequestHeader(value = "Authorization") String requestTokenHeader,
-			@PathParam("imageId") String imageId) throws Exception {
-		logger.info("Entering viewImage method inside ImageController");
+			@PathVariable("imageId") String imageId) throws Exception {
+		logger.info("Entering viewImage method inside ImageController for id", imageId);
 
 		String username = null;
 		String jwtToken = null;
@@ -87,9 +96,22 @@ public class ImageController {
 		}
 
 		logger.info("Exiting viewImage method inside ImageController");
-		return ResponseEntity.ok(imageDetailsService.viewImage(username, imageId));
+		ImageDetails imgDetail = imageDetailsService.viewImage(username, imageId);
+		if (null != imgDetail)
+			return ResponseEntity.ok(imgDetail);
+		else
+			return new ResponseEntity<String>("No Record Found!", HttpStatus.OK);
 	}
 
+	/**
+	 * This API will Upload the image to imgur and pass the details to Kafka for
+	 * storing to DB
+	 * 
+	 * @param requestTokenHeader
+	 * @param image
+	 * @return
+	 * @throws Exception
+	 */
 	@ApiOperation(value = "Upload Image")
 	@RequestMapping(value = "/image", method = RequestMethod.POST)
 	public ResponseEntity<?> uploadImage(@RequestHeader(value = "Authorization") String requestTokenHeader,
@@ -109,15 +131,23 @@ public class ImageController {
 			}
 		}
 
-		imageDetailsService.saveAndUploadImage(image, username);
+		ResponseWrapper responseWrapper=imageDetailsService.saveAndUploadImage(image, username);
 		logger.info("Exiting uploadImage method inside ImageController");
-		return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
+		return new ResponseEntity<ResponseWrapper>(responseWrapper, HttpStatus.OK);
 	}
 
+	/**
+	 * This API is used to delete the Image
+	 * 
+	 * @param requestTokenHeader
+	 * @param imageId
+	 * @return
+	 * @throws Exception
+	 */
 	@ApiOperation(value = "Delete Image")
-	@RequestMapping(value = "/image", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/image/{imageId}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteImage(@RequestHeader(value = "Authorization") String requestTokenHeader,
-			@RequestParam("imageId") String imageId) throws Exception {
+			@PathVariable("imageId") String imageId) throws Exception {
 
 		logger.info("Entering deleteImage method inside ImageController");
 		String username = null;
@@ -134,9 +164,9 @@ public class ImageController {
 			}
 		}
 
-		imageDetailsService.deleteImage(username, imageId);
+		ResponseWrapper responseWrapper=imageDetailsService.deleteImage(username, imageId);
 		logger.info("Exiting deleteImage method inside ImageController");
-		return new ResponseEntity("Successfully Deleted!", HttpStatus.OK);
+		return new ResponseEntity<ResponseWrapper>(responseWrapper, HttpStatus.OK);
 	}
 
 }

@@ -3,6 +3,7 @@ package com.synchrony.synchronydemo.service;
 import java.util.List;
 
 import com.synchrony.synchronydemo.dom.ImageData;
+import com.synchrony.synchronydemo.dom.ResponseWrapper;
 import com.synchrony.synchronydemo.models.ImageDetails;
 
 public interface ImageDetailsService {
@@ -11,9 +12,9 @@ public interface ImageDetailsService {
 	
 	public ImageDetails viewImage(String userName,String imageHash);
 	
-	public boolean saveAndUploadImage(ImageData image,String userName);
+	public ResponseWrapper saveAndUploadImage(ImageData image,String userName);
 	
-	public boolean deleteImage(String userName,String imageId);
+	public ResponseWrapper deleteImage(String userName,String imageId);
 	
 	public void saveUserImageMapping(ImageDetails image);
 

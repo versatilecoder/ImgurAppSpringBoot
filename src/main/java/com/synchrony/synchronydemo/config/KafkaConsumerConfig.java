@@ -17,46 +17,37 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import com.synchrony.synchronydemo.models.ImageDetails;
 
+/**
+ * @author pranav
+ *
+ */
 @EnableKafka
 @Configuration
 public class KafkaConsumerConfig {
-	
+
 	@Value(value = "${spring.kafka.bootstrap-servers}")
-    private String bootstrapAddress;
-	
+	private String bootstrapAddress;
+
 	@Value(value = "${spring.kafka.consumer.group-id}")
-    private String groupId;
+	private String groupId;
 
-    @Bean
-    public ConsumerFactory<String, ImageDetails> consumerFactory() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(
-          ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, 
-          bootstrapAddress);
-        props.put(
-          ConsumerConfig.GROUP_ID_CONFIG, 
-          groupId);
-        props.put(
-          ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, 
-          JsonSerializer.class);
-        props.put(
-          ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, 
-          JsonSerializer.class);
-        return new DefaultKafkaConsumerFactory<>(
-        	      props,
-        	      new StringDeserializer(), 
-        	      new JsonDeserializer<>(ImageDetails.class));
-    }
+	@Bean
+	public ConsumerFactory<String, ImageDetails> consumerFactory() {
+		Map<String, Object> props = new HashMap<>();
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+		return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(),
+				new JsonDeserializer<>(ImageDetails.class));
+	}
 
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, ImageDetails> 
-      kafkaListenerContainerFactory() {
-   
-        ConcurrentKafkaListenerContainerFactory<String, ImageDetails> factory =
-          new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
-        return factory;
-    }
-    
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, ImageDetails> kafkaListenerContainerFactory() {
+
+		ConcurrentKafkaListenerContainerFactory<String, ImageDetails> factory = new ConcurrentKafkaListenerContainerFactory<>();
+		factory.setConsumerFactory(consumerFactory());
+		return factory;
+	}
 
 }
