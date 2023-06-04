@@ -72,6 +72,9 @@ public class ImageDetailsServiceImpl implements ImageDetailsService {
 					.orElseThrow(() -> new RecordNotFoundException("Record Not Found with given image: " + imageId));
 			ImageResponseWrapper wrapperResponse = new ImageResponseWrapper();
 			logger.trace("Fetched image", imgDetails.getUserName());
+			/**
+			 * USer can only view his own image
+			 */
 			if (imgDetails.getUserName().equals(userName)) {
 				String hashId = imgDetails.getImageHash();
 				logger.trace("Image hash", hashId);
@@ -100,6 +103,9 @@ public class ImageDetailsServiceImpl implements ImageDetailsService {
 			logger.trace("Image hash is",hashId);
 			logger.trace("userName is",userName+"--"+imgDetails.getUserName());
 			try {
+				/**
+				 * USer can only delete his own image
+				 */
 				if (imgDetails.getUserName().equals(userName)) {
 					response = imgurAdapter.deleteImage(hashId);
 					if (response.getStatus() == 200)
