@@ -14,10 +14,10 @@ Project support below activities:
 
 Assumptions:
 1.  At time of registration Person provide password as well
-2.  UserName should be unique at registeration 
+2.  UserName should be unique at registration (Else userName already exist will be shown as response)
 3.	A Person can login using Username and Password	
 4.  To view List of Images, person will get urls of all images in response
-5.  Every image has imageid attached even if displaued on UI.
+5.  Every image has imageid attached even if displayed on UI.
 6.  To view just one image, person on passing imageid, will get the URL
 7.  All testing done on localhost(kafka,jenkins,nexus,h2)
 
@@ -39,6 +39,7 @@ Assumptions:
   _Nexus_ - http://localhost:8081/
   
   For Nexus Server use please update the settings.xml (~.m2/settings.xml) with below details
+  ```xml
  <servers>   
    <server>
             <id>nexus-release</id>
@@ -55,7 +56,8 @@ Assumptions:
       <blocked>true</blocked>
     </mirror>
    </mirrors>
-   
+  .```
+  
    and repository url in pom.xml under distributionManagement
    
    
