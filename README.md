@@ -4,12 +4,12 @@ SpringBoot App integrated with ImgurApi to Upload, View and Delete Image
 
 
 Project support below activities:
-1)  Api Documentation using Swagger
+1)      Api Documentation using Swagger
 2)	Kafka to save the details to DB
 3)	JenkinsFile for CI/CD Pipeline
 4)	Deployment to Nexus
 5)	In-memory H2 Database
-6)  Log4J for Logging
+6)      Log4J for Logging
 
 
 Assumptions:
@@ -28,8 +28,17 @@ Assumptions:
  
   _H2_- http://localhost:8080/h2-console
   
+  ![alt text](https://i.imgur.com/Nxvdzbr.png)
+  
   _Jenkins_ - http://localhost:9090/
+  
+  ![alt text](https://i.imgur.com/MMZ44Wq.png)
+  
   _Nexus_ - http://localhost:8081/
+  
+  
+![alt text](https://i.imgur.com/xEhMxKQ.png)
+
   _Kafka_ - localhost:9092
 
 
