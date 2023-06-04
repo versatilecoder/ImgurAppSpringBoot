@@ -56,7 +56,7 @@ Assumptions:
       <blocked>true</blocked>
     </mirror>
    </mirrors>
-  .```
+  ```
   
    and repository url in pom.xml under distributionManagement
    
